@@ -1,0 +1,10 @@
+DROP TABLE IF EXISTS `users`;
+
+CREATE TABLE `legoHouse`.`users` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(90) NOT NULL,
+  `password` VARCHAR(45) NOT NULL,
+  `role` ENUM('CUSTOMER','EMPLOYEE') NOT NULL DEFAULT 'CUSTOMER',
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `email_UNIQUE` (`email` ASC) VISIBLE
+);
