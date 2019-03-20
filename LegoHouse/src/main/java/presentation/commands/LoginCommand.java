@@ -33,11 +33,14 @@ public class LoginCommand extends Command {
 
                 if (user.getRole() == RoleEnum.EMPLOYEE) {
                     response.addHeader("redirect", request.getContextPath() + "/employee");
-                    request.getRequestDispatcher("/admin").forward(request, response);
+                    request.getRequestDispatcher("/employee").forward(request, response);
                 } else {
                     response.addHeader("redirect", request.getContextPath() + "/customer");
                     request.getRequestDispatcher("/customer").forward(request, response);
                 }
+            } else {
+                request.setAttribute("errormessage", "User not valid");
+                request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (UserException | SQLException | ServletException | IOException ex) {
             throw new CommandException(ex.getMessage());

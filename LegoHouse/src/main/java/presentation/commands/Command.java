@@ -17,9 +17,10 @@ public abstract class Command {
         commands = new HashMap<>();
         commands.put("login", new LoginCommand());
         commands.put("register", new RegisterCommand());
+        commands.put("placeOrder", new PlaceOrderCommand());
     }
 
-    static Command from(HttpServletRequest request) {
+    public static Command from(HttpServletRequest request) {
         String commandName = request.getParameter("command");
         if (commands == null) {
             initCommands();

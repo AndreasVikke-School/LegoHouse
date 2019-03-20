@@ -26,7 +26,7 @@ public class RegisterCommand extends Command {
                 UserController.createUser(email, password1);
                 
                 response.addHeader("redirect", request.getContextPath() + "/login");
-                request.getRequestDispatcher("/customer").forward(request, response);
+                request.getRequestDispatcher("/login").forward(request, response);
                 
             } catch (UserException | SQLException | ServletException | IOException ex) {
                 throw new CommandException(ex.getMessage());

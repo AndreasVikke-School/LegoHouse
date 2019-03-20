@@ -43,7 +43,6 @@ public class UserMapper implements DataMapperInterface<User> {
 
             if (id != -1 && id != 0) {
                 connector.commit();
-                user.setId(id);
                 return id;
             }
         } catch (SQLException ex) {
@@ -54,8 +53,8 @@ public class UserMapper implements DataMapperInterface<User> {
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();
-            return -1;
         }
+        return -1;
     }
     
     @Override
@@ -77,8 +76,8 @@ public class UserMapper implements DataMapperInterface<User> {
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();
-            return null;
         }
+        return null;
     }
 
     @Override
@@ -123,7 +122,7 @@ public class UserMapper implements DataMapperInterface<User> {
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();
-            return false;
         }
+        return false;
     }
 }

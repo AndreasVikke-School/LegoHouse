@@ -6,6 +6,7 @@ import data.models.RoleEnum;
 import java.sql.SQLException;
 import logic.exceptions.UserException;
 import data.models.User;
+import java.util.List;
 
 /**
  *
@@ -20,6 +21,10 @@ public class UserController {
     
     public static User getUser(String email) throws UserException, SQLException  {
         return mapper.get(new User(email, null, null));
+    }
+    
+    public static List<User> getAllUsers(String email) throws UserException, SQLException  {
+        return mapper.getAll();
     }
     
     public static boolean validateUser(String email, String password) throws UserException, SQLException {
