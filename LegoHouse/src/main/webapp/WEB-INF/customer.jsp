@@ -6,6 +6,7 @@
 <%@page import="java.util.List"%>
 <%@page import="data.models.Order"%>
 <%@include file="../header.jsp" %>
+
 <%
     List<Order> orders = (List<Order>) session.getAttribute("orders");
 %>

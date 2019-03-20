@@ -7,7 +7,6 @@
 
 <%@page import="data.models.BrickSide"%>
 <%@page import="data.models.BrickLayer"%>
-<%@page import="data.models.PartList"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>

@@ -3,18 +3,21 @@ package presentation;
 import data.models.RoleEnum;
 import data.models.User;
 import java.io.IOException;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import logic.OrderController;
+import logic.exceptions.OrderException;
 
 /**
  *
  * @author Andreas Vikke
  */
-@WebServlet(name="EmployeeServlet", urlPatterns={"/employee"})
+@WebServlet(name = "EmployeeServlet", urlPatterns = {"/employee"})
 public class EmployeeServlet extends HttpServlet {
 
     /**
@@ -27,13 +30,20 @@ public class EmployeeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
-            request.getRequestDispatcher("/login").forward(request, response);
-        } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE) {
-            request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);
-        } else {
-            request.getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
+        try {
+            HttpSession session = request.getSession();
+            if (session.getAttribute("user") == null) {
+                request.getRequestDispatcher("/login").forward(request, response);
+            } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE) {
+                session.setAttribute("orders", OrderController.getAllOrders());
+                request.getRequestDispatcher("/WEB-INF/employee.jsp").forward(request, response);
+            } else {
+                session.setAttribute("orders", OrderController.getAllOrdersByUser((User) session.getAttribute("user")));
+                request.getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
+            }
+        } catch (OrderException | SQLException ex) {
+            request.setAttribute("errormessage", ex.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 

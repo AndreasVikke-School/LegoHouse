@@ -25,7 +25,7 @@ public class OrderController {
         return mapper.get(o);
     }
     
-    public static List<Order> getAllOrders(int id) throws OrderException, SQLException  {
+    public static List<Order> getAllOrders() throws OrderException, SQLException  {
         return mapper.getAll();
     }
     
