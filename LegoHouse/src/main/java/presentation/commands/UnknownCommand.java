@@ -12,8 +12,7 @@ public class UnknownCommand extends Command {
 
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws CommandException {
-        String msg = "Unknown command. Contact IT";
-        throw new CommandException(msg);
+        throw new CommandException("Unknown command");
     }
 
 }

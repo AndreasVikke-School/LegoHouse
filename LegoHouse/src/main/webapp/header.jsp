@@ -4,7 +4,14 @@
     Author     : Andreas Vikke
 --%>
 
+<%@page import="data.models.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+<%
+    HttpSession headerSession = request.getSession();
+    User u = (User) headerSession.getAttribute("user");
+%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -18,3 +25,31 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+            <a class="navbar-brand" href="">Lego House</a>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <% if (u == null) { %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login"><i class="fas fa-sign-in-alt"></i> Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register"><i class="far fa-edit"></i> Register</a>
+                    </li>
+                    <% } else {%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="shop"><i class="fas fa-shopping-cart"></i> Shop</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="customer"><i class="far fa-user"></i> Account</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="CommandServlet?command=logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </li>
+                    <% }%>
+                </ul>
+            </div>
+        </nav>
+        <div class="main">

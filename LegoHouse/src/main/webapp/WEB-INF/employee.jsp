@@ -11,7 +11,8 @@
 <%
     List<Order> orders = (List<Order>) session.getAttribute("orders");
 %>
-Employee
+
+<h1>Employee</h1>
 <div class="customerBox">
     <table class="table">
         <thead class="thead-dark">

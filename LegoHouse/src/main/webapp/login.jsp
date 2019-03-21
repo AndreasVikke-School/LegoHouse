@@ -6,6 +6,7 @@
 
 <%@include file="header.jsp" %>
 
+<h1>Login</h1>
 <form id="loginForm" method="POST">
     <div id="errorBox" class="alert alert-danger" role="alert"></div>
     <div class="form-group">

@@ -1,7 +1,8 @@
 package logic;
 
+import data.models.BrickLayer;
+import data.models.BrickSide;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -10,54 +11,53 @@ import java.util.List;
  */
 public class BrickCalculator {
     
-    private static HashMap<String, Integer> lengthBricks;
-    private static HashMap<String, Integer> widthBricks;
-    
-    public static List<HashMap<String, Integer>> calculateBricks(int length, int width, int height) {
-        lengthBricks = new  HashMap();
-        widthBricks = new  HashMap();
-        calculateLength(length);
-        calculateWidth(width);
-        List<HashMap<String, Integer>> bricks = new ArrayList();
-        bricks.add(lengthBricks);
-        bricks.add(widthBricks);
-        return bricks;
+    public static List<BrickLayer> calcBricks(int length, int width, int height) {
+        List<BrickLayer> brickLayers = new ArrayList();
+        
+        for(int i = 1; i <= height; i++)
+            brickLayers.add(calcLayer(length, width, i));
+            
+        return brickLayers;
     }
     
-    private static void calculateLength(int length) {
-        for(int i = 0; i < length;) {
-            if(i + 4 <= length) {
-                int oldLengthVal = lengthBricks.getOrDefault("2x4", 0);
-                lengthBricks.put("2x4", ++oldLengthVal);
-                i += 4;
-            } else if(i + 2 <= length) {
-                int oldLengthVal = lengthBricks.getOrDefault("2x2", 0);
-                lengthBricks.put("2x2", ++oldLengthVal);
-                i += 2;
-            } else {
-                int oldLengthVal = lengthBricks.getOrDefault("2x1", 0);
-                lengthBricks.put("2x1", ++oldLengthVal);
-                i += 1;
-            }
-        }
+    private static BrickLayer calcLayer(int length, int width, int layer) {
+        BrickLayer brickLayer = new BrickLayer();
+        boolean doorLayer, windowLayer;
+        
+        if(layer == 1 || layer == 2 || layer == 3)
+            doorLayer = true;
+        else
+            doorLayer = false;
+        
+        if(layer == 2 || layer == 3)
+            windowLayer = true;
+        else
+            windowLayer = false;
+        
+        brickLayer.addSide(calcSide(length, layer, doorLayer, windowLayer, 1));
+        brickLayer.addSide(calcSide(length, layer, doorLayer, windowLayer, 2));
+        brickLayer.addSide(calcSide(width, layer, doorLayer, windowLayer, 0));
+        brickLayer.addSide(calcSide(width, layer, doorLayer, windowLayer, 0));
+        
+        return brickLayer;
     }
     
-    private static void calculateWidth(int width) {
-        width -= 4;
-        for(int i = 0; i < width;) {
-            if(i + 4 <= width) {
-                int oldLengthVal = widthBricks.getOrDefault("2x4", 0);
-                widthBricks.put("2x4", ++oldLengthVal);
-                i += 4;
-            } else if(i + 2 <= width) {
-                int oldLengthVal = widthBricks.getOrDefault("2x2", 0);
-                widthBricks.put("2x2", ++oldLengthVal);
-                i += 2;
-            } else {
-                int oldLengthVal = widthBricks.getOrDefault("2x1", 0);
-                widthBricks.put("2x1", ++oldLengthVal);
-                i += 1;
-            }
-        }
+    private static BrickSide calcSide(int value, int layer, boolean doorLayer, boolean windowLayer, int type) {
+        if (layer % 2 > 0 && type != 0)
+            value -= 4;
+        else if (layer % 2 == 0 && type == 0)
+            value -= 4;
+        
+        if(doorLayer && type == 1)
+            value -= 2;
+        
+         if(windowLayer && type == 2)
+            value -= 2;
+        
+        int calc2x4 = value / 4;
+        int calc2x2 = (value % 4) / 2;
+        int calc2x1 = (value % 4) % 2;
+        
+        return new BrickSide(calc2x4, calc2x2, calc2x1);
     }
 }

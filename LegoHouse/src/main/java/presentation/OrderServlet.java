@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import logic.BrickCalculatorYellow;
+import logic.BrickCalculator;
 import logic.OrderController;
 import logic.exceptions.OrderException;
 
@@ -48,7 +48,7 @@ public class OrderServlet extends HttpServlet {
                     } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE
                             || ((User) session.getAttribute("user")).getId() == (order.getUserId())) {
                         session.setAttribute("order", order);
-                        session.setAttribute("partList", BrickCalculatorYellow.calcBricks(order.getLength(), order.getWidth(), order.getHeight()));
+                        session.setAttribute("partList", BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight()));
                         request.getRequestDispatcher("/WEB-INF/order.jsp").forward(request, response);
                     } else {
                         request.setAttribute("errormessage", "Insufficient permisson to access order.");
@@ -56,11 +56,11 @@ public class OrderServlet extends HttpServlet {
                     }
                 }
             } else {
-                response.setHeader("errormessage", "No Order Id supplied.");
+                response.addHeader("errormessage", "No Order Id supplied.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
-                response.setHeader("errormessage", "No Order Id supplied.");
+                response.addHeader("errormessage", "No Order Id supplied.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }

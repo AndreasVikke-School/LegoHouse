@@ -1,12 +1,12 @@
 package presentation;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import logic.exceptions.CommandException;
 import presentation.commands.Command;
 
 /**
@@ -27,7 +27,7 @@ public class CommandServlet extends HttpServlet {
         try {
             Command c = Command.from(request);
             c.execute(request, response);
-        } catch (Exception ex) {
+        } catch (CommandException ex) {
             response.addHeader("errormessage", ex.getMessage());
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }

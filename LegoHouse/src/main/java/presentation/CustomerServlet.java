@@ -38,7 +38,7 @@ public class CustomerServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
-                response.setHeader("errormessage", ex.getMessage());
+                response.addHeader("errormessage", ex.getMessage());
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }

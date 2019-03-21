@@ -12,11 +12,13 @@
 <%@page import="java.util.HashMap"%>
 <%@page import="data.models.Order"%>
 <%@include file = "../header.jsp" %>
+
 <%
     Order order = (Order) session.getAttribute("order");
     List<BrickLayer> brickLayers = (List<BrickLayer>) session.getAttribute("partList");
 %>
 
+<h1>Order #<%= order.getId() %></h1>
 <div class="orderBox">
     <table class="table">
         <thead class="thead-dark">

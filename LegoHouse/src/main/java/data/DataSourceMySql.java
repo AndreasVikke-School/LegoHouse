@@ -16,7 +16,7 @@ public class DataSourceMySql {
             try {
                 dataSource.setServerName("andreasvikke.dk");
                 dataSource.setPort(3306);
-                dataSource.setDatabaseName("legohouse");
+                dataSource.setDatabaseName("legoHouse");
                 dataSource.setUser("transformer");
                 dataSource.setPassword("f7qGtArm");
                 dataSource.setUseSSL(false);
@@ -34,6 +34,6 @@ public class DataSourceMySql {
     }
 
     public MysqlDataSource getDataSource() {
-        return localDataSource;
+        return dataSource;
     }
 }
