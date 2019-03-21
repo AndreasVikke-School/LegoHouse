@@ -116,7 +116,7 @@ public class UserMapper implements DataMapperInterface<User> {
                 if(email.equals(rs.getString("email")))
                     return true;
             } else {
-                throw new UserException("Could not validate user");
+                return false;
             }
         } catch (SQLException ex) {
             throw new UserException(ex.getMessage());

@@ -36,11 +36,10 @@ public class PlaceOrderCommand extends Command {
                 
                 request.getRequestDispatcher("/order?orderId=" + id).forward(request, response);
             } else {
-                request.setAttribute("errormessage", "All fields needs to be filled");
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
+//                response.addHeader("errormessage", "All fields needs to be filled");
+//                request.getRequestDispatcher("/error.jsp").forward(request, response);
+                throw new CommandException("All fields needs to be filled");
             }
-
-            
         } catch (OrderException | SQLException | ServletException | IOException ex) {
             throw new CommandException(ex.getMessage());
         }

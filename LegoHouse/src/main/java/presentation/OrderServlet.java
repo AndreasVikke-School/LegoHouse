@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import logic.BrickCalculator;
 import logic.BrickCalculatorYellow;
 import logic.OrderController;
 import logic.exceptions.OrderException;
@@ -57,11 +56,11 @@ public class OrderServlet extends HttpServlet {
                     }
                 }
             } else {
-                request.setAttribute("errormessage", "No Order Id supplied.");
+                response.setHeader("errormessage", "No Order Id supplied.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
-                request.setAttribute("errormessage", "No Order Id supplied.");
+                response.setHeader("errormessage", "No Order Id supplied.");
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }

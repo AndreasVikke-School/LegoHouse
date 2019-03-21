@@ -1,21 +1,19 @@
 <%-- 
-    Document   : error.jsp
-    Created on : Mar 4, 2019, 11:39:21 AM
+    Document   : error
+    Created on : Mar 21, 2019, 12:32:58 PM
     Author     : Andreas Vikke
 --%>
 
-<%@include file = "header.jsp" %>
+<%@include file="header.jsp" %>
 
 <%
-    String errormessage = "Error occurred...";
-    if(request.getAttribute("errormessage") != null)
-    {
-        errormessage = (String) request.getAttribute("errormessage");
+    String errorMessage = "Error occurred...";
+    if(response.getHeader("errormessage") != null) {
+        errorMessage = response.getHeader("errormessage");
     }
 %>
-
+    
 <h1>Error:</h1>
-<p id="errorMessage"><%= errormessage %></p>
+<p id="errorMessage"><%= errorMessage %></p>
 
-<%@include file = "footer.jsp" %>
-
+<%@include file="footer.jsp" %>

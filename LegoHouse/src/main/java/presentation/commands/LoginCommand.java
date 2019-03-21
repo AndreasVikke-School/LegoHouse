@@ -39,8 +39,9 @@ public class LoginCommand extends Command {
                     request.getRequestDispatcher("/customer").forward(request, response);
                 }
             } else {
-                request.setAttribute("errormessage", "User not valid");
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
+                throw new CommandException("Incorrect username and/or password");
+//                response.addHeader("errormessage", "Incorrect username and/or password");
+//                request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (UserException | SQLException | ServletException | IOException ex) {
             throw new CommandException(ex.getMessage());
