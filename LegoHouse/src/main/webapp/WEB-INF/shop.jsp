@@ -15,12 +15,20 @@
     </div>
     <div class="form-group">
         <label>Width</label>
-        <input type="number" class="form-control" name="width" placeholder="Width in dots..."maxlength="25">
+        <input type="number" class="form-control" name="width" placeholder="Width in dots..." maxlength="25">
     </div>
     <div class="form-group">
         <label>Height</label>
-        <input type="number" class="form-control" name="height" placeholder="Hight in bricks..."maxlength="25">
-    </div><br />
+        <input type="number" class="form-control" name="height" placeholder="Hight in bricks..." maxlength="25">
+    </div>
+    <div class="form-group">
+        <label>Bound</label>
+        <input type="checkbox" class="form-control" name="bound">
+        <label>Door</label>
+        <input type="checkbox" class="form-control" name="door">
+        <label>Window</label>
+        <input type="checkbox" class="form-control" name="window">
+    </div>
     <button type="submit" class="btn btn-primary" formaction="CommandServlet?command=placeOrder">Place Order</button>
 </form>
 

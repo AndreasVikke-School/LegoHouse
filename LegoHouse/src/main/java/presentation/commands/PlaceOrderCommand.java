@@ -23,6 +23,9 @@ public class PlaceOrderCommand extends Command {
             String length = request.getParameter("length");
             String width = request.getParameter("width");
             String height = request.getParameter("height");
+            Boolean door = "on".equals(request.getParameter("door"));
+            Boolean window = "on".equals(request.getParameter("window"));
+            Boolean bound = "on".equals(request.getParameter("bound"));
             
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("user");
@@ -32,12 +35,10 @@ public class PlaceOrderCommand extends Command {
                     && height != null && !width.isEmpty()
                     && user != null) {
                 
-                int id = OrderController.createOrder(user.getId(), Integer.parseInt(length), Integer.parseInt(width), Integer.parseInt(height));
+                int id = OrderController.createOrder(user.getId(), Integer.parseInt(length), Integer.parseInt(width), Integer.parseInt(height), door, window, bound);
                 
                 request.getRequestDispatcher("/order?orderId=" + id).forward(request, response);
             } else {
-//                response.addHeader("errormessage", "All fields needs to be filled");
-//                request.getRequestDispatcher("/error.jsp").forward(request, response);
                 throw new CommandException("All fields needs to be filled");
             }
         } catch (OrderException | SQLException | ServletException | IOException ex) {

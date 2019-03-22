@@ -18,7 +18,7 @@
     List<BrickLayer> brickLayers = (List<BrickLayer>) session.getAttribute("partList");
 %>
 
-<h1>Order #<%= order.getId() %></h1>
+<h1>Order #<%= order.getId()%></h1>
 <div class="orderBox">
     <table class="table">
         <thead class="thead-dark">
@@ -30,6 +30,9 @@
                 <th scope="col">Height</th>
                 <th scope="col">Date</th>
                 <th scope="col">Shipped</th>
+                <th scope="col">Bound</th>
+                <th scope="col">Door</th>
+                <th scope="col">Window</th>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +44,21 @@
                 <td><%= order.getHeight()%></td>
                 <td><%= order.getDate()%></td>
                 <% if (order.isShipped()) { %>
+                <td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                    <% } else { %>
+                <td><i class="fas fa-times-circle" style="color: red;"></i></td>
+                    <% } %>
+                    <% if (order.isBound()) { %>
+                <td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                    <% } else { %>
+                <td><i class="fas fa-times-circle" style="color: red;"></i></td>
+                    <% } %>
+                    <% if (order.isDoor()) { %>
+                <td><i class="fas fa-check-circle" style="color: green;"></i></td>
+                    <% } else { %>
+                <td><i class="fas fa-times-circle" style="color: red;"></i></td>
+                    <% } %>
+                    <% if (order.isWindow()) { %>
                 <td><i class="fas fa-check-circle" style="color: green;"></i></td>
                     <% } else { %>
                 <td><i class="fas fa-times-circle" style="color: red;"></i></td>
@@ -81,27 +99,27 @@
                 }%>
             <tr>
                 <th scope="row">2x4</th>
-                <td><%= map.get("S1-2x4") %></td>
-                <td><%= map.get("S2-2x4") %></td>
-                <td><%= map.get("S3-2x4") %></td>
-                <td><%= map.get("S4-2x4") %></td>
-                <td><%= map.get("S1-2x4") + map.get("S2-2x4") + map.get("S3-2x4") + map.get("S4-2x4") %></td>
+                <td><%= map.get("S1-2x4")%></td>
+                <td><%= map.get("S2-2x4")%></td>
+                <td><%= map.get("S3-2x4")%></td>
+                <td><%= map.get("S4-2x4")%></td>
+                <td><%= map.get("S1-2x4") + map.get("S2-2x4") + map.get("S3-2x4") + map.get("S4-2x4")%></td>
             </tr>
             <tr>
                 <th scope="row">2x2</th>
-                <td><%= map.get("S1-2x2") %></td>
-                <td><%= map.get("S2-2x2") %></td>
-                <td><%= map.get("S3-2x2") %></td>
-                <td><%= map.get("S4-2x2") %></td>
-                <td><%= map.get("S1-2x2") + map.get("S2-2x2") + map.get("S3-2x2") + map.get("S4-2x2") %></td>
+                <td><%= map.get("S1-2x2")%></td>
+                <td><%= map.get("S2-2x2")%></td>
+                <td><%= map.get("S3-2x2")%></td>
+                <td><%= map.get("S4-2x2")%></td>
+                <td><%= map.get("S1-2x2") + map.get("S2-2x2") + map.get("S3-2x2") + map.get("S4-2x2")%></td>
             </tr>
             <tr>
                 <th scope="row">2x1</th>
-                <td><%= map.get("S1-2x1") %></td>
-                <td><%= map.get("S2-2x1") %></td>
-                <td><%= map.get("S3-2x1") %></td>
-                <td><%= map.get("S4-2x1") %></td>
-                <td><%= map.get("S1-2x1") + map.get("S2-2x1") + map.get("S3-2x1") + map.get("S4-2x1") %></td>
+                <td><%= map.get("S1-2x1")%></td>
+                <td><%= map.get("S2-2x1")%></td>
+                <td><%= map.get("S3-2x1")%></td>
+                <td><%= map.get("S4-2x1")%></td>
+                <td><%= map.get("S1-2x1") + map.get("S2-2x1") + map.get("S3-2x1") + map.get("S4-2x1")%></td>
             </tr>
         </tbody>
     </table>

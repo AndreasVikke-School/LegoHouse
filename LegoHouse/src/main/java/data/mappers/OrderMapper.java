@@ -28,13 +28,16 @@ public class OrderMapper implements DataMapperInterface<Order> {
     public int add(Order order) throws OrderException, SQLException {
         try {
             connector.open();
-            String SQL = "INSERT INTO orders (userId, width, length, height) VALUES (?, ?, ?, ?)";
+            String SQL = "INSERT INTO orders (userId, width, length, height, doorC, windowC, boundC) VALUES (?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connector.prepareStatement(SQL, Statement.RETURN_GENERATED_KEYS);
 
             ps.setInt(1, order.getUserId());
             ps.setInt(2, order.getWidth());
             ps.setInt(3, order.getLength());
             ps.setInt(4, order.getHeight());
+            ps.setBoolean(5, order.isDoor());
+            ps.setBoolean(6, order.isWindow());
+            ps.setBoolean(7, order.isBound());
             connector.setAutoCommit(false);
 
             ps.executeUpdate();
@@ -63,13 +66,13 @@ public class OrderMapper implements DataMapperInterface<Order> {
         try {
             connector.open();
             
-            String SQL = "SELECT id, userId, width, length, height, date, shipped FROM orders WHERE id = ?";
+            String SQL = "SELECT id, userId, width, length, height, date, shipped, doorC, windowC, boundC FROM orders WHERE id = ?";
             PreparedStatement ps = connector.prepareStatement(SQL);
             ps.setInt(1, order.getId());
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                Order dbOrder = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"));
+                Order dbOrder = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 dbOrder.setId(rs.getInt("id"));
                 return dbOrder;
             }
@@ -87,12 +90,12 @@ public class OrderMapper implements DataMapperInterface<Order> {
             connector.open();
             List<Order> orders = new ArrayList();
             
-            String SQL = "SELECT id, userId, width, length, height, date, shipped FROM orders";
+            String SQL = "SELECT id, userId, width, length, height, date, shipped, doorC, windowC, boundC FROM orders";
             PreparedStatement ps = connector.prepareStatement(SQL);
             
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"));
+                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 order.setId(rs.getInt("id"));
                 orders.add(order);
             }
@@ -110,13 +113,13 @@ public class OrderMapper implements DataMapperInterface<Order> {
             connector.open();
             List<Order> orders = new ArrayList();
             
-            String SQL = "SELECT id, userId, width, length, height, date, shipped FROM orders where userId = ?";
+            String SQL = "SELECT id, userId, width, length, height, date, shipped, doorC, windowC, boundC FROM orders where userId = ?";
             PreparedStatement ps = connector.prepareStatement(SQL);
             ps.setInt(1, user.getId());
             
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"));
+                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 order.setId(rs.getInt("id"));
                 orders.add(order);
             }

@@ -14,14 +14,20 @@ public class Order {
     private int height;
     private Date date;
     private boolean shipped;
+    private boolean door;
+    private boolean window;
+    private boolean bound;
 
-    public Order(int userId, int width, int length, int height, Date date, boolean shipped) {
+    public Order(int userId, int width, int length, int height, Date date, boolean shipped, boolean door, boolean window, boolean bound) {
         this.userId = userId;
         this.width = width;
         this.length = length;
         this.height = height;
         this.date = date;
         this.shipped = shipped;
+        this.door = door;
+        this.window = window;
+        this.bound = bound;
     }
 
     public int getId() {
@@ -54,5 +60,17 @@ public class Order {
 
     public boolean isShipped() {
         return shipped;
+    }
+
+    public boolean isDoor() {
+        return door;
+    }
+
+    public boolean isWindow() {
+        return window;
+    }
+
+    public boolean isBound() {
+        return bound;
     }
 }

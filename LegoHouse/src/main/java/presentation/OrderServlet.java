@@ -48,7 +48,7 @@ public class OrderServlet extends HttpServlet {
                     } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE
                             || ((User) session.getAttribute("user")).getId() == (order.getUserId())) {
                         session.setAttribute("order", order);
-                        session.setAttribute("partList", BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight()));
+                        session.setAttribute("partList", BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight(), order.isDoor(), order.isWindow(), order.isBound()));
                         request.getRequestDispatcher("/WEB-INF/order.jsp").forward(request, response);
                     } else {
                         request.setAttribute("errormessage", "Insufficient permisson to access order.");

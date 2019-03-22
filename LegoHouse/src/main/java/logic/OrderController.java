@@ -15,12 +15,12 @@ import logic.exceptions.OrderException;
 public class OrderController {
     private static final OrderMapper mapper = new OrderMapper(new DataSourceMySql().getDataSource());
 
-    public static int createOrder(int userId, int length, int width, int height) throws OrderException, SQLException {
-        return mapper.add(new Order(userId, width, length, height, null, false));
+    public static int createOrder(int userId, int length, int width, int height, boolean door, boolean window, boolean bound) throws OrderException, SQLException {
+        return mapper.add(new Order(userId, width, length, height, null, false, door, window, bound));
     }
     
     public static Order getOrder(int id) throws OrderException, SQLException  {
-        Order o = new Order(0,0,0,0,null, false);
+        Order o = new Order(0,0,0,0,null, false,false,false,false);
         o.setId(id);
         return mapper.get(o);
     }

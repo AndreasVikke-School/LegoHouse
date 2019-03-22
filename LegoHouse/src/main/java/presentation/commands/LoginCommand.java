@@ -10,6 +10,7 @@ import logic.exceptions.CommandException;
 import logic.exceptions.UserException;
 import data.models.User;
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import javax.servlet.ServletException;
 
 /**
@@ -40,10 +41,8 @@ public class LoginCommand extends Command {
                 }
             } else {
                 throw new CommandException("Incorrect username and/or password");
-//                response.addHeader("errormessage", "Incorrect username and/or password");
-//                request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
-        } catch (UserException | SQLException | ServletException | IOException ex) {
+        } catch (UserException | SQLException | ServletException | IOException | NoSuchAlgorithmException ex) {
             throw new CommandException(ex.getMessage());
         }
     }

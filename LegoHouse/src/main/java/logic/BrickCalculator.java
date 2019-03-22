@@ -10,9 +10,15 @@ import java.util.List;
  * @author Andreas Vikke
  */
 public class BrickCalculator {
+    private static boolean doorCheck;
+    private static boolean windowCheck;
+    private static boolean bound;
     
-    public static List<BrickLayer> calcBricks(int length, int width, int height) {
+    public static List<BrickLayer> calcBricks(int length, int width, int height, boolean dc, boolean wc, boolean b) {
         List<BrickLayer> brickLayers = new ArrayList();
+        doorCheck = dc;
+        windowCheck = wc;
+        bound = b;
         
         for(int i = 1; i <= height; i++)
             brickLayers.add(calcLayer(length, width, i));
@@ -43,15 +49,17 @@ public class BrickCalculator {
     }
     
     private static BrickSide calcSide(int value, int layer, boolean doorLayer, boolean windowLayer, int type) {
-        if (layer % 2 > 0 && type != 0)
+        if (layer % 2 > 0 && type != 0 && bound)
             value -= 4;
-        else if (layer % 2 == 0 && type == 0)
+        else if (layer % 2 == 0 && type == 0 && bound)
+            value -= 4;
+        else if(!bound && type == 0)
             value -= 4;
         
-        if(doorLayer && type == 1)
+        if(doorLayer && doorCheck && type == 1)
             value -= 2;
         
-         if(windowLayer && type == 2)
+         if(windowLayer && windowCheck && type == 2)
             value -= 2;
         
         int calc2x4 = value / 4;
