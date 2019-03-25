@@ -2,12 +2,12 @@ $(document).ready(function () {
 
     // Validate Submit for Login Form
     $('#loginForm').submit(function (e) {
-        $("#loginForm #errorBox").hide();
-        if ($("#loginForm input[name=email]").val() === ""
-                || $("#loginForm input[name=password]").val() === "") {
+        $("#" + this.id + " #errorBox").hide();
+        if ($("#" + this.id + " input[name=email]").val() === ""
+                || $("#" + this.id + " input[name=password]").val() === "") {
             e.preventDefault();
-            $("#errorBox").html("Please fill out all fields");
-            $("#errorBox").show();
+            $("#" + this.id + " #errorBox").html("Please fill out all fields");
+            $("#" + this.id + " #errorBox").show();
         } else {
             e.preventDefault();
             ajax($(this));
@@ -16,13 +16,28 @@ $(document).ready(function () {
 
     // Validate Submit for Register Form
     $('#registerForm').submit(function (e) {
-        $("#registerForm #errorBox").hide();
-        if ($("#registerForm input[name=email]").val() === ""
-                || $("#registerForm input[name=password1]").val() === ""
-                || $("#registerForm input[name=password2]").val() === "") {
+        $("#" + this.id + " #errorBox").hide();
+        if ($("#" + this.id + " input[name=email]").val() === ""
+                || $("#" + this.id + " input[name=password1]").val() === ""
+                || $("#" + this.id + "  input[name=password2]").val() === "") {
             e.preventDefault();
-            $("#errorBox").html("Please fill out all fields");
-            $("#errorBox").show();
+            $("#" + this.id + " #errorBox").html("Please fill out all fields");
+            $("#" + this.id + " #errorBox").show();
+        } else {
+            e.preventDefault();
+            ajax($(this));
+        }
+    });
+    
+    // Validate Submit for Register Form
+    $('#shopForm').submit(function (e) {
+        $("#" + this.id + " #errorBox").hide();
+        if ($("#" + this.id + " input[name=length]").val() === ""
+                || $("#" + this.id + " input[name=width]").val() === ""
+                || $("#" + this.id + " input[name=height]").val() === "") {
+            e.preventDefault();
+            $("#" + this.id + " #errorBox").html("Please fill out all fields");
+            $("#" + this.id + " #errorBox").show();
         } else {
             e.preventDefault();
             ajax($(this));
@@ -37,16 +52,16 @@ function ajax(formObj) {
         data: $(formObj).serialize()
     }).done(function (data, textStatus, request) {
         if (request.getResponseHeader('errormessage') !== null) {
-            $("#errorBox").html(request.getResponseHeader('errormessage'));
-            $("#errorBox").show();
-            $("#successBox").hide();
+            $("#" + formObj.attr("id") + " #errorBox").html(request.getResponseHeader('errormessage'));
+            $("#" + formObj.attr("id") + " #errorBox").show();
+            $("#" + formObj.attr("id") + " #successBox").hide();
         } else {
             if (request.getResponseHeader('redirect') !== null) {
                 window.location = request.getResponseHeader('redirect');
             } else if(request.getResponseHeader('success') !== null) {
-                $("#successBox").html(request.getResponseHeader('success'));
-                $("#successBox").show();
-                $("#errorBox").hide();
+                $("#" + formObj.attr("id") + " #successBox").html(request.getResponseHeader('success'));
+                $("#" + formObj.attr("id") + " #successBox").show();
+                $("#" + formObj.attr("id") + " #errorBox").hide();
             }
         }
     });

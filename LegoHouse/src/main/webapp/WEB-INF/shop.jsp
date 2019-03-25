@@ -10,16 +10,16 @@
 <form id="shopForm" method="POST">
     <div id="errorBox" class="alert alert-danger" role="alert"></div>
     <div class="form-group">
-        <label>Length</label>
-        <input type="number" class="form-control" name="length" placeholder="Length in dots..." maxlength="25">
+        <label>Length (Min 12)</label>
+        <input type="number" class="form-control" name="length" placeholder="Length in dots..." min="12" value="12" maxlength="25">
     </div>
     <div class="form-group">
-        <label>Width</label>
-        <input type="number" class="form-control" name="width" placeholder="Width in dots..." maxlength="25">
+        <label>Width (Min 6)</label>
+        <input type="number" class="form-control" name="width" placeholder="Width in dots..." min="6" value="6" maxlength="25">
     </div>
     <div class="form-group">
-        <label>Height</label>
-        <input type="number" class="form-control" name="height" placeholder="Hight in bricks..." maxlength="25">
+        <label>Height  (Min 1)</label>
+        <input type="number" class="form-control" name="height" placeholder="Hight in bricks..." min="1" value="1" maxlength="25">
     </div>
     <div class="form-group">
         <label>Bound</label>

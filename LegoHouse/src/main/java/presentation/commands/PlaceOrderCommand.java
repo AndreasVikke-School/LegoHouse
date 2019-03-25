@@ -34,12 +34,19 @@ public class PlaceOrderCommand extends Command {
                     && width != null && !width.isEmpty()
                     && height != null && !width.isEmpty()
                     && user != null) {
+                int lengthInt = Integer.parseInt(length);
+                int widthInt = Integer.parseInt(width);
+                int heightInt = Integer.parseInt(height);
                 
-                int id = OrderController.createOrder(user.getId(), Integer.parseInt(length), Integer.parseInt(width), Integer.parseInt(height), door, window, bound);
-                
-                request.getRequestDispatcher("/order?orderId=" + id).forward(request, response);
+                if(lengthInt >= 12 && widthInt >= 6 && heightInt >= 1) {
+                    int id = OrderController.createOrder(user.getId(), lengthInt, widthInt, heightInt, door, window, bound);
+
+                    request.getRequestDispatcher("/order?orderId=" + id).forward(request, response);
+                } else {
+                    throw new CommandException("Fields must be above minimum");
+                }
             } else {
-                throw new CommandException("All fields needs to be filled");
+                throw new CommandException("All fields must to be filled");
             }
         } catch (OrderException | SQLException | ServletException | IOException ex) {
             throw new CommandException(ex.getMessage());
