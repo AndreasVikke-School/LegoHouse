@@ -31,14 +31,9 @@ public class LoginCommand extends Command {
                 User user = UserController.getUser(email);
                 HttpSession session = request.getSession();
                 session.setAttribute("user", user);
-
-                if (user.getRole() == RoleEnum.EMPLOYEE) {
-                    response.addHeader("redirect", request.getContextPath() + "/employee");
-                    request.getRequestDispatcher("/employee").forward(request, response);
-                } else {
-                    response.addHeader("redirect", request.getContextPath() + "/customer");
-                    request.getRequestDispatcher("/customer").forward(request, response);
-                }
+                
+                response.addHeader("redirect", request.getContextPath() + "/account");
+                request.getRequestDispatcher("/employee").forward(request, response);
             } else {
                 throw new CommandException("Incorrect username and/or password");
             }

@@ -1,6 +1,9 @@
 package data.models;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 
 /**
  *
@@ -13,12 +16,12 @@ public class Order {
     private int length;
     private int height;
     private Date date;
-    private boolean shipped;
+    private Date shipped;
     private boolean door;
     private boolean window;
     private boolean bound;
 
-    public Order(int userId, int width, int length, int height, Date date, boolean shipped, boolean door, boolean window, boolean bound) {
+    public Order(int userId, int width, int length, int height, Date date, Date shipped, boolean door, boolean window, boolean bound) {
         this.userId = userId;
         this.width = width;
         this.length = length;
@@ -58,8 +61,9 @@ public class Order {
         return date;
     }
 
-    public boolean isShipped() {
-        return shipped;
+    public boolean isShipped() throws ParseException {
+        Date nullDate = new Date(19000101);
+        return shipped.after(nullDate);
     }
 
     public boolean isDoor() {

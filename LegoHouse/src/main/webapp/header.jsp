@@ -46,7 +46,7 @@
                         <a class="nav-link" href="shop"><i class="fas fa-shopping-cart"></i> Shop</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="customer"><i class="far fa-user"></i> Account</a>
+                        <a class="nav-link" href="account"><i class="far fa-user"></i> Account</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="CommandServlet?command=logout"><i class="fas fa-sign-out-alt"></i> Logout</a>

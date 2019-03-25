@@ -72,7 +72,7 @@ public class OrderMapper implements DataMapperInterface<Order> {
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                Order dbOrder = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
+                Order dbOrder = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getDate("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 dbOrder.setId(rs.getInt("id"));
                 return dbOrder;
             }
@@ -95,7 +95,7 @@ public class OrderMapper implements DataMapperInterface<Order> {
             
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
+                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getDate("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 order.setId(rs.getInt("id"));
                 orders.add(order);
             }
@@ -119,13 +119,34 @@ public class OrderMapper implements DataMapperInterface<Order> {
             
             ResultSet rs = ps.executeQuery();
             while(rs.next()) {
-                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getBoolean("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
+                Order order = new Order(rs.getInt("userId"), rs.getInt("width"), rs.getInt("length"), rs.getInt("height"), rs.getDate("date"), rs.getDate("shipped"), rs.getBoolean("doorC"), rs.getBoolean("windowC"), rs.getBoolean("boundC"));
                 order.setId(rs.getInt("id"));
                 orders.add(order);
             }
             
             return orders;
         } catch (SQLException ex) {
+            throw new OrderException(ex.getMessage());
+        } finally {
+            connector.close();
+        }
+    }
+    
+    public void shipOrder(int orderId) throws OrderException, SQLException {
+        try {
+            connector.open();
+            String SQL = "UPDATE orders set shipped = CURRENT_TIMESTAMP WHERE id = ?";
+            PreparedStatement ps = connector.prepareStatement(SQL);
+            ps.setInt(1, orderId);
+            
+            connector.setAutoCommit(false);
+            ps.executeUpdate();
+            connector.commit();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            if (connector != null) {
+                connector.rollback();
+            }
             throw new OrderException(ex.getMessage());
         } finally {
             connector.close();

@@ -20,7 +20,7 @@ CREATE TABLE `legoHouse`.`orders` (
   `windowC` BOOLEAN NOT NULL,
   `boundC` BOOLEAN NOT NULL,
   `date` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `shipped` BOOLEAN DEFAULT FALSE,
+  `shipped` DATETIME NOT NULL DEFAULT '1900-01-01',
   PRIMARY KEY (`id`),
   INDEX `userId_FK_idx` (`userid` ASC) VISIBLE,
   CONSTRAINT `userId_FK`

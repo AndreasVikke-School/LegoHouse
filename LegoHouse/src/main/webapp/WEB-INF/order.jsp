@@ -6,8 +6,6 @@
 
 
 <%@page import="data.models.BrickSide"%>
-<%@page import="data.models.BrickLayer"%>
-<%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="data.models.Order"%>
@@ -15,11 +13,11 @@
 
 <%
     Order order = (Order) session.getAttribute("order");
-    List<BrickLayer> brickLayers = (List<BrickLayer>) session.getAttribute("partList");
+    HashMap<String, Integer> map = (HashMap<String, Integer>) session.getAttribute("partList");
 %>
 
 <h1>Order #<%= order.getId()%></h1>
-<div class="orderBox">
+<div class="orderBox" class="table-responsive">
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -79,24 +77,6 @@
             </tr>
         </thead>
         <tbody>
-            <%
-                HashMap<String, Integer> map = new HashMap();
-                for (int i = 0; i < brickLayers.size(); i++) {
-                    map.put("S1-2x4", map.getOrDefault("S1-2x4", 0) + brickLayers.get(i).getSides().get(0).getBricks2x4());
-                    map.put("S2-2x4", map.getOrDefault("S2-2x4", 0) + brickLayers.get(i).getSides().get(1).getBricks2x4());
-                    map.put("S3-2x4", map.getOrDefault("S3-2x4", 0) + brickLayers.get(i).getSides().get(2).getBricks2x4());
-                    map.put("S4-2x4", map.getOrDefault("S4-2x4", 0) + brickLayers.get(i).getSides().get(3).getBricks2x4());
-
-                    map.put("S1-2x2", map.getOrDefault("S1-2x2", 0) + brickLayers.get(i).getSides().get(0).getBricks2x2());
-                    map.put("S2-2x2", map.getOrDefault("S2-2x2", 0) + brickLayers.get(i).getSides().get(1).getBricks2x2());
-                    map.put("S3-2x2", map.getOrDefault("S3-2x2", 0) + brickLayers.get(i).getSides().get(2).getBricks2x2());
-                    map.put("S4-2x2", map.getOrDefault("S4-2x2", 0) + brickLayers.get(i).getSides().get(3).getBricks2x2());
-
-                    map.put("S1-2x1", map.getOrDefault("S1-2x1", 0) + brickLayers.get(i).getSides().get(0).getBricks2x1());
-                    map.put("S2-2x1", map.getOrDefault("S2-2x1", 0) + brickLayers.get(i).getSides().get(1).getBricks2x1());
-                    map.put("S3-2x1", map.getOrDefault("S3-2x1", 0) + brickLayers.get(i).getSides().get(2).getBricks2x1());
-                    map.put("S4-2x1", map.getOrDefault("S4-2x1", 0) + brickLayers.get(i).getSides().get(3).getBricks2x1());
-                }%>
             <tr>
                 <th scope="row">2x4</th>
                 <td><%= map.get("S1-2x4")%></td>
@@ -123,7 +103,7 @@
             </tr>
         </tbody>
     </table>
-    <button class="btn btn-info" name="back" onclick="history.back()">Back</button>
+    <button class="btn btn-info" id="backButton" name="back" onclick="history.back()">Back</button>
 </div>
 
 <%@include file = "../footer.jsp" %>

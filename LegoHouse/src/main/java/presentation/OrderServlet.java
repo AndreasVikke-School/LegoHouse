@@ -1,10 +1,13 @@
 package presentation;
 
+import data.models.BrickLayer;
 import data.models.Order;
 import data.models.RoleEnum;
 import data.models.User;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -48,7 +51,27 @@ public class OrderServlet extends HttpServlet {
                     } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE
                             || ((User) session.getAttribute("user")).getId() == (order.getUserId())) {
                         session.setAttribute("order", order);
-                        session.setAttribute("partList", BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight(), order.isDoor(), order.isWindow(), order.isBound()));
+                        
+                         List<BrickLayer> brickLayers = BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight(), order.isDoor(), order.isWindow(), order.isBound());
+                        
+                        HashMap<String, Integer> map = new HashMap();
+                        for (int i = 0; i < brickLayers.size(); i++) {
+                            map.put("S1-2x4", map.getOrDefault("S1-2x4", 0) + brickLayers.get(i).getSides().get(0).getBricks2x4());
+                            map.put("S2-2x4", map.getOrDefault("S2-2x4", 0) + brickLayers.get(i).getSides().get(1).getBricks2x4());
+                            map.put("S3-2x4", map.getOrDefault("S3-2x4", 0) + brickLayers.get(i).getSides().get(2).getBricks2x4());
+                            map.put("S4-2x4", map.getOrDefault("S4-2x4", 0) + brickLayers.get(i).getSides().get(3).getBricks2x4());
+
+                            map.put("S1-2x2", map.getOrDefault("S1-2x2", 0) + brickLayers.get(i).getSides().get(0).getBricks2x2());
+                            map.put("S2-2x2", map.getOrDefault("S2-2x2", 0) + brickLayers.get(i).getSides().get(1).getBricks2x2());
+                            map.put("S3-2x2", map.getOrDefault("S3-2x2", 0) + brickLayers.get(i).getSides().get(2).getBricks2x2());
+                            map.put("S4-2x2", map.getOrDefault("S4-2x2", 0) + brickLayers.get(i).getSides().get(3).getBricks2x2());
+
+                            map.put("S1-2x1", map.getOrDefault("S1-2x1", 0) + brickLayers.get(i).getSides().get(0).getBricks2x1());
+                            map.put("S2-2x1", map.getOrDefault("S2-2x1", 0) + brickLayers.get(i).getSides().get(1).getBricks2x1());
+                            map.put("S3-2x1", map.getOrDefault("S3-2x1", 0) + brickLayers.get(i).getSides().get(2).getBricks2x1());
+                            map.put("S4-2x1", map.getOrDefault("S4-2x1", 0) + brickLayers.get(i).getSides().get(3).getBricks2x1());
+                        }
+                        session.setAttribute("partList", map);
                         request.getRequestDispatcher("/WEB-INF/order.jsp").forward(request, response);
                     } else {
                         request.setAttribute("errormessage", "Insufficient permisson to access order.");

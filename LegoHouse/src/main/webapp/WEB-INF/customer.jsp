@@ -7,7 +7,7 @@
 <%@include file="../header.jsp" %>
 
 <h1>Customer</h1>
-<div class="customerBox">
+<div class="customerBox" class="table-responsive">
     <%@include file="orderList.jsp" %>
 </div>
 
