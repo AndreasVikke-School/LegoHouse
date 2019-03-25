@@ -39,6 +39,7 @@ public class DatabaseConnector {
         }
 
         if (connection != null && !connection.isClosed()) {
+            connection.setAutoCommit(true);
             connection.close();
             connection = null;
         }
