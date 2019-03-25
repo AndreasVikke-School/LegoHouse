@@ -20,9 +20,7 @@ public class OrderController {
     }
     
     public static Order getOrder(int id) throws OrderException, SQLException  {
-        Order o = new Order(0,0,0,0,null, null,false,false,false);
-        o.setId(id);
-        return mapper.get(o);
+        return mapper.get(id);
     }
     
     public static List<Order> getAllOrders() throws OrderException, SQLException  {

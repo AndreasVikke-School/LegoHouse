@@ -16,7 +16,7 @@ import logic.exceptions.OrderException;
  *
  * @author Andreas Vikke
  */
-public class OrderMapper implements DataMapperInterface<Order> {
+public class OrderMapper implements DataMapperInterface<Order, Integer> {
 
     private static final DatabaseConnector connector = new DatabaseConnector();
 
@@ -62,13 +62,13 @@ public class OrderMapper implements DataMapperInterface<Order> {
     }
 
     @Override
-    public Order get(Order order) throws OrderException, SQLException  {
+    public Order get(Integer orderId) throws OrderException, SQLException  {
         try {
             connector.open();
             
             String SQL = "SELECT id, userId, width, length, height, date, shipped, doorC, windowC, boundC FROM orders WHERE id = ?";
             PreparedStatement ps = connector.prepareStatement(SQL);
-            ps.setInt(1, order.getId());
+            ps.setInt(1, orderId);
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {

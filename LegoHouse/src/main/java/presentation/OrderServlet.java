@@ -74,7 +74,7 @@ public class OrderServlet extends HttpServlet {
                         session.setAttribute("partList", map);
                         request.getRequestDispatcher("/WEB-INF/order.jsp").forward(request, response);
                     } else {
-                        request.setAttribute("errormessage", "Insufficient permisson to access order.");
+                        response.addHeader("errormessage", "Insufficient permisson to access order.");
                         request.getRequestDispatcher("/error.jsp").forward(request, response);
                     }
                 }
@@ -83,7 +83,7 @@ public class OrderServlet extends HttpServlet {
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
-                response.addHeader("errormessage", "No Order Id supplied.");
+                response.addHeader("errormessage", ex.getMessage());
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }

@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Andreas Vikke
  */
-public class UserMapper implements DataMapperInterface<User> {
+public class UserMapper implements DataMapperInterface<User, String> {
 
     private static final DatabaseConnector connector = new DatabaseConnector();
 
@@ -58,13 +58,13 @@ public class UserMapper implements DataMapperInterface<User> {
     }
     
     @Override
-    public User get(User user) throws UserException, SQLException  {
+    public User get(String email) throws UserException, SQLException  {
         try {
             connector.open();
             
             String SQL = "SELECT id, email, role FROM users WHERE email = ?";
             PreparedStatement ps = connector.prepareStatement(SQL);
-            ps.setString(1, user.getEmail());
+            ps.setString(1, email);
             
             ResultSet rs = ps.executeQuery();
             if(rs.next()) {

@@ -29,7 +29,7 @@ public class UserController {
     }
 
     public static User getUser(String email) throws UserException, SQLException {
-        return mapper.get(new User(email, null, null));
+        return mapper.get(email);
     }
 
     public static List<User> getAllUsers(String email) throws UserException, SQLException {
