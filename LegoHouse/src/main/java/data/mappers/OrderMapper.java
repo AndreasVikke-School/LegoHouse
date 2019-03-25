@@ -77,6 +77,7 @@ public class OrderMapper implements DataMapperInterface<Order, Integer> {
                 return dbOrder;
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new OrderException(ex.getMessage());
         } finally {
             connector.close();
@@ -102,6 +103,7 @@ public class OrderMapper implements DataMapperInterface<Order, Integer> {
             
             return orders;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new OrderException(ex.getMessage());
         } finally {
             connector.close();
@@ -126,6 +128,7 @@ public class OrderMapper implements DataMapperInterface<Order, Integer> {
             
             return orders;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new OrderException(ex.getMessage());
         } finally {
             connector.close();

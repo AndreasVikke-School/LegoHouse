@@ -23,6 +23,7 @@ public class ShipOrderComand extends Command {
             
             request.getRequestDispatcher("/account").forward(request, response);
         } catch (OrderException | SQLException | IOException | ServletException ex) {
+            ex.printStackTrace();
             throw new CommandException(ex.getMessage());
         }
     }

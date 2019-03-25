@@ -51,9 +51,9 @@ public class OrderServlet extends HttpServlet {
                     } else if (((User) session.getAttribute("user")).getRole() == RoleEnum.EMPLOYEE
                             || ((User) session.getAttribute("user")).getId() == (order.getUserId())) {
                         session.setAttribute("order", order);
-                        
-                         List<BrickLayer> brickLayers = BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight(), order.isDoor(), order.isWindow(), order.isBound());
-                        
+
+                        List<BrickLayer> brickLayers = BrickCalculator.calcBricks(order.getLength(), order.getWidth(), order.getHeight(), order.isDoor(), order.isWindow(), order.isBound());
+
                         HashMap<String, Integer> map = new HashMap();
                         for (int i = 0; i < brickLayers.size(); i++) {
                             map.put("S1-2x4", map.getOrDefault("S1-2x4", 0) + brickLayers.get(i).getSides().get(0).getBricks2x4());
@@ -83,8 +83,9 @@ public class OrderServlet extends HttpServlet {
                 request.getRequestDispatcher("/error.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
-                response.addHeader("errormessage", ex.getMessage());
-                request.getRequestDispatcher("/error.jsp").forward(request, response);
+            ex.printStackTrace();
+            response.addHeader("errormessage", ex.getMessage());
+            request.getRequestDispatcher("/error.jsp").forward(request, response);
         }
     }
 

@@ -33,6 +33,7 @@ public class RegisterCommand extends Command {
                 throw new CommandException("The two passwords did not match");
             }
         } catch (UserException | SQLException | ServletException | IOException | NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
             throw new CommandException(ex.getMessage());
         }
     }

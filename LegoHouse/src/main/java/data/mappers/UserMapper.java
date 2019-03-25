@@ -73,6 +73,7 @@ public class UserMapper implements DataMapperInterface<User, String> {
                 return dbUser;
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();
@@ -98,6 +99,7 @@ public class UserMapper implements DataMapperInterface<User, String> {
             
             return users;
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();
@@ -119,6 +121,7 @@ public class UserMapper implements DataMapperInterface<User, String> {
                 return false;
             }
         } catch (SQLException ex) {
+            ex.printStackTrace();
             throw new UserException(ex.getMessage());
         } finally {
             connector.close();

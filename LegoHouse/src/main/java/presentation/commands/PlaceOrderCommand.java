@@ -49,6 +49,7 @@ public class PlaceOrderCommand extends Command {
                 throw new CommandException("All fields must to be filled");
             }
         } catch (OrderException | SQLException | ServletException | IOException ex) {
+            ex.printStackTrace();
             throw new CommandException(ex.getMessage());
         }
     }

@@ -20,6 +20,7 @@ public class LogoutCommand extends Command {
 
             response.sendRedirect(request.getContextPath());
         } catch (IOException ex) {
+            ex.printStackTrace();
             throw new CommandException(ex.getMessage());
         }
     }

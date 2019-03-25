@@ -42,6 +42,7 @@ public class EmployeeServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/customer.jsp").forward(request, response);
             }
         } catch (OrderException | SQLException ex) {
+            ex.printStackTrace();
             response.addHeader("errormessage", ex.getMessage());
             request.getRequestDispatcher("/error.jsp").forward(request, response);
         }

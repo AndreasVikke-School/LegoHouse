@@ -38,6 +38,7 @@ public class LoginCommand extends Command {
                 throw new CommandException("Incorrect username and/or password");
             }
         } catch (UserException | SQLException | ServletException | IOException | NoSuchAlgorithmException ex) {
+            ex.printStackTrace();
             throw new CommandException(ex.getMessage());
         }
     }
