@@ -8,8 +8,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%
-    HttpSession headerSession = request.getSession();
-    User u = (User) headerSession.getAttribute("user");
+    User u = (User) session.getAttribute("user");
 %>
 
 <!DOCTYPE html>

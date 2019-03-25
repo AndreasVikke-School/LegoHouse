@@ -8,8 +8,6 @@
 <%@page import="java.util.List"%>
 <%@include file="../header.jsp" %>
 
-
-
 <h1>Employee</h1>
 <div class="employeeBox" class="table-responsive">
     <%@include file="orderList.jsp" %>
